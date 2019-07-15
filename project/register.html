@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<style type="text/css">
+		.container {
+		}
+		table {
+			width: 550px;
+			margin-top: 20px;
+		}
+		th {
+			text-align: center;
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<form name="join" method="post" action="register_form.php" onsubmit="return validate();">
+			<input type="hidden" name="w" value="">
+			<table border="1" align="center">
+				<thead>
+					<tr>
+						<th align="center" colspan="3">회원등록</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<th>id</td>
+						<td>
+							<input type="text" name="id" id="id">
+						</td>
+						<td>
+							<button>ID CHECK</button>
+						</td>
+					</tr>
+					<tr>
+						<th>PW</td>
+						<td colspan="2">
+							<input type="password" name="pw1" id="pw1">
+						</td>
+					</tr>
+					<tr>
+						<th>PW</td>
+						<td  colspan="2">
+							<input type="password" name="pw2" id="pw2">
+						</td>
+					</tr>
+					<tr>
+						<th>AGE</td>
+						<td  colspan="2">
+							<input type="text" name="age">
+						</td>
+					</tr>
+					<tr>
+						<th>Gender</td>
+						<td colspan="2" align="center">
+							<input type="radio" name="gender" value="남자">남자
+							<input type="radio" name="gender" value="여자">여자
+						</td>
+					</tr>
+					<tr>
+						<td align="right" colspan="3">
+							<input type="submit" value="가입하기" /><input type="reset" value="다시쓰기" />
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</form>
+	</div>
+	<script>
+		function validate() {
+
+			var re = /^[a-zA-Z0-9]{4,12}$/ // 아이디와 패스워드가 적합한지 검사할 정규식
+
+			var id = document.getElementById("id");
+
+			var pw1 = document.getElementById("pw1");
+			var pw2 = document.getElementById("pw2");
+
+			if (id.value=="") {
+				alert("아이디를 입력해주세요");
+				id.focus();
+				return false;
+			}
+
+			if(document.join.pw1.value.length == 0){
+				alert("비밀번호는 필 수 사항입니다.");
+				pw1.focus();
+				return false;
+			}
+
+			if (!check(re,id,"아이디는 4~12자의 영문 대소문자와 숫자로만 입력")) {
+				return false;
+			}
+
+			if(!check(re,pw1,"패스워드는 4~12자의 영문 대소문자와 숫자로만 입력")) {
+	           return false;
+	       	}
+
+			if(pw1.value != pw2.value){
+				alert("비밀번호가 일치하지 않습니다.");
+				pw2.focus();
+				return false;
+			}
+
+		}
+
+		function check(re, what, message) {
+			if (re.test(what.value)) {return true;}
+			alert(message);
+			what.value = "";
+			what.focus();
+		}
+	</script>
+</body>
+</html>
